@@ -61,7 +61,11 @@ export default function AiMultiModels() {
   return (
     <div className="flex h-[75vh] justify-center border-b gap-3 ">
       {aiModels.map((model, index) => (
-        <div className="flex flex-col h-full overflow-auto border-r  ${model.enable ? 'flex-1 min-w-[500px]' : 'w-[100px] flex-none'} ">
+        <div
+          className={`flex flex-col h-full overflow-auto border-r ${
+            model.enable ? "flex-1 min-w-[400px]" : "w-[100px] flex-none"
+          }`}
+        >
           <div
             key={index}
             className="flex items-center w-full justify-center h-[50px] border-b "

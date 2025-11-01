@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { SignInButton, useUser } from "@clerk/nextjs";
+
 import {
   Sidebar,
   SidebarContent,
@@ -9,12 +11,14 @@ import {
   SidebarGroup,
   SidebarHeader,
 } from "@/components/ui/sidebar";
-import { Ghost, Moon, Sun } from "lucide-react";
+import { Ghost, Moon, Sun, User2, User2Icon, Zap } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import UsageCredit from "./UsageCredit";
 
 export function AppSidebar() {
  const {theme, setTheme} = useTheme();  
+ const {user} = useUser();
   return (
     <Sidebar>
       <SidebarHeader>
@@ -34,20 +38,31 @@ export function AppSidebar() {
           :<Button variant={Ghost}  onClick ={() => setTheme('light')}> <Moon/> </Button>
          }
         </div>
-        <Button className="mt-7 w-full h-6" size="large"> + New Chat </Button>
+        {user ?<Button className="mt-7 w-full h-6" size="large"> + New Chat </Button>:<SignInButton mode="modal">
+          <Button className="text-lg p-2 w-full h-6">Sign In/Sign Up</Button>
+          </SignInButton> 
+        }
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup> 
           <div className="p-2">
             <h2 className="font-bold text-lg flex">Chat</h2>
-            <p className="text-sm text-gray-400">Sign in to begin chat</p> 
+            {!user && <p className="text-sm text-gray-400">Sign in to begin chat</p> }
           </div>
         </SidebarGroup> 
         
       </SidebarContent>
       <SidebarFooter>
+        <UsageCredit />
         <div className=" flex items-center gap-3 p-2">
+          {!user ?<SignInButton mode="modal">
           <Button className="text-lg p-2 w-full h-6">Sign In/Sign Up</Button>
+          </SignInButton> : 
+          <div >
+            <Button className={'w-full mb-2'}> <Zap/>Upgrade Plan</Button>
+            <Button className="flex" variant={'ghost'}><User2Icon/> <h2>Settings</h2> </Button>
+          </div>
+      }
         </div>
         <div>
           <p className="text-sm text-gray-400 pl-2">Made with ❤️ by ThinkSync</p>
