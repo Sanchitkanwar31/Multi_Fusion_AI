@@ -24,6 +24,7 @@ import { useAuth } from "@clerk/nextjs";
 import { useContext } from "react";
 import { AimSelectedModelContext } from "@/context/AimSelectedModelContext";
 import Pricingmodel from "./Pricingmodel";
+import { SignOutButton } from "@clerk/nextjs";
 
 export function AppSidebar() {
   const { theme, setTheme } = useTheme();
@@ -34,7 +35,7 @@ export function AppSidebar() {
     useContext(AimSelectedModelContext);
 
   const { has } = useAuth();
-  
+
   // const paidUser = has({ plan: "unlimited_plan" });
 
   useEffect(() => {
@@ -185,7 +186,7 @@ export function AppSidebar() {
             </SignInButton>
           ) : (
             <div className="w-full">
-              {! has({ plan: "unlimited_plan" }) && 
+              {!has({ plan: "unlimited_plan" }) && (
                 <div>
                   <UsageCredit remainingtoken={freemsgcount} />
                   <Pricingmodel>
@@ -194,11 +195,18 @@ export function AppSidebar() {
                     </Button>
                   </Pricingmodel>
                 </div>
-              }
+              )}
 
-              <Button className="flex w-full" variant="ghost">
+              <SignOutButton afterSignOutUrl="/">
+                <Button className="flex w-full" variant="ghost">
+                  <User2Icon className="mr-2" />
+                  <h2>Sign Out</h2>
+                </Button>
+              </SignOutButton>
+
+              {/* <Button className="flex w-full" variant="ghost">
                 <User2Icon className="mr-2" /> <h2>Settings</h2>
-              </Button>
+              </Button> */}
             </div>
           )}
         </div>
