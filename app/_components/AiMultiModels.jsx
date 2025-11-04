@@ -1,3 +1,4 @@
+"use client";
 import React, { useContext, useState } from "react";
 import aimodelist from "@/shared/aimodelist";
 import Image from "next/image";
@@ -21,23 +22,18 @@ import { doc } from "firebase/firestore";
 import { db } from "@/config/FirebaseConfig";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { useAuth } from "@clerk/nextjs";
 
-export default function AiMultiModels() {
+
+export  function AiMultiModels() {
   const [aiModels, setAiModels] = useState(aimodelist);
-
+  const { has } = useAuth();
   const { aiselectedmodel, setAiselectedmodel, messages, setMessages } =
-    useContext(AimSelectedModelContext);
-
-  // const { aiselectedmodel, setAiselectedmodel } = useContext(
-  //   AimSelectedModelContext
-  // );
+  useContext(AimSelectedModelContext);
+  
+  
   const { user } = useUser();
 
-  // const onToglechange = (model, value) => {
-  //   setAiModels((prevModels) =>
-  //     prevModels.map((m) => (m.model === model ? { ...m, enable: value } : m))
-  //   );
-  // };
 
   const onToglechange = async (model, value) => {
     // Update UI toggle state
@@ -105,7 +101,7 @@ export default function AiMultiModels() {
                 <Select
                   onValueChange={(val) => handleSelectChange(model.model, val)}
                   defaultValue={aiselectedmodel?.[model.model]?.modelId}
-                  disabled={model?.premium}
+                  disabled={!has({ plan: 'unlimited_plan' }) && model?.premium}
                 >
                   <SelectTrigger className="w-[180px]">
                     <SelectValue
@@ -137,11 +133,11 @@ export default function AiMultiModels() {
                       </SelectLabel>
                       {model.subModel.map(
                         (sub, subIndex) =>
-                          sub.premium && (
+                          sub.premium &&  (
                             <SelectItem
                               key={subIndex}
                               value={sub.name}
-                              disabled={true}
+                              disabled={!has({ plan: 'unlimited_plan' }) && true}
                             >
                               {sub.name}{" "}
                               {sub.premium && (
@@ -158,13 +154,13 @@ export default function AiMultiModels() {
 
             <div>
               <Switch
-                checked={model.enable}
+                checked={model.enable }
                 onCheckedChange={(v) => onToglechange(model.model, v)}
               />
             </div>
           </div>
 
-          {model.premium && model.enable && (
+          {!has({ plan: 'unlimited_plan' }) && model.premium && model.enable && (
             <div className="flex items-center justify-center h-full">
               <Button>
                 <Lock /> Upgrade to premium
