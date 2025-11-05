@@ -97,6 +97,7 @@ ThinkSync/
 4. **Visit the app:**
    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+
 ---
 
 ##  Key Components
@@ -125,6 +126,13 @@ Contains pricing logic and modal display for subscription upgrades.
 * Integrate real-time streaming of responses.
 * Implement chat sharing and export features.
 * Add analytics for AI performance comparison.
+
+---
+##  Deployment
+
+* This project is deployed on Vercel and accessible at
+ https://multi-fusion-afa19euqs-sanchitkanwar31s-projects.vercel.app/
+.
 
 ---
 
