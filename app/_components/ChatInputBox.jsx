@@ -36,13 +36,23 @@ function ChatInputbox() {
   }, [params]);
 
   const handleSend = async () => {
-    if (!inputMessage.trim()) return;
+    
+    if (!user) {
+    toast.error("Please sign in to start chatting");
+    return;
+    }
+
+    if (!inputMessage || !inputMessage.trim()) {
+    toast.warning("Please type a message before sending");
+    return;
+  }
 
     //deduct and check limit
     if(!has({ plan: "unlimited_plan" })){
     const result=await axios.post('/api/user-remaining-credit',{
         token:1
     });
+
     console.log(result);
     const remainingtoken = result?.data?.remainingtoken;
     

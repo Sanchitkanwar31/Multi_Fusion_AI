@@ -1,36 +1,140 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ThinkSync
 
-## Getting Started
+**ThinkSync** is an advanced multi-AI collaboration platform that seamlessly integrates various large language models (LLMs) such as Gemini, Groq (LLaMA), and others. It allows users to interact with multiple AI agents in a single chat interface, compare responses, manage credits, and upgrade subscription plans — all within an elegant and responsive Next.js application.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+##  Features
+
+###  Multi-AI Collaboration
+
+* Engage multiple AI models in one conversation.
+* Dynamically select and compare responses from different models.
+* Supports context-aware interactions using shared prompts.
+
+###  Authentication & User Management
+
+* Integrated with **Clerk** for authentication and user session handling.
+* Secure and persistent user data management.
+
+###  Credit Management System
+
+* Tracks free message credits per user.
+* Displays remaining credits and restricts access after daily limits.
+* Option to upgrade to premium/unlimited plans.
+
+###  Chat History
+
+* Each user’s conversations are stored and retrieved using **Firebase Firestore**.
+* Displays previous chat summaries and last message timestamps.
+
+
+### 💳 Subscription Plans
+
+* Integrated **Pricing Model** component for users to upgrade their plans.
+* Shows usage credits and provides a smooth transition to paid features.
+
+---
+
+##  Tech Stack
+
+| Layer                      | Technologies                                 |
+| -------------------------- | -------------------------------------------- |
+| **Frontend**               | Next.js 14, React, Tailwind CSS, ShadCN/UI   |
+| **Auth & User Management** | Clerk Authentication                         |
+| **Backend**                | Kravix.com (API Routes), Axios for API handling |
+| **Database**               | Firebase Firestore                           |
+
+
+---
+
+##  Project Structure
+
+```
+ThinkSync/
+│── app/
+│   ├── _components/
+│   │   ├── AppSidebar.jsx
+│   │   ├── ChatInputBox.jsx
+│   │   ├── AiMultiModels.jsx
+│   │   ├── UsageCredit.jsx
+│   │   └── Pricingmodel.jsx
+│   ├── page.js
+│── context/
+│   └── AimSelectedModelContext.js
+│── config/
+│   ├── FirebaseConfig.js
+│   └── Arcjet.js
+│── public/
+│── package.json
+│── README.md
+│── .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+##  Installation & Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Clone the repository:**
 
-## Learn More
+   ```bash
+   git clone https://github.com/Sanchitkanwar31/ThinkSync.git
+   cd ThinkSync
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install dependencies:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Run the development server:**
 
-## Deploy on Vercel
+   ```bash
+   npm run dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **Visit the app:**
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+##  Key Components
+
+### **AppSidebar.jsx**
+
+Handles the sidebar UI, including user authentication, theme toggling, chat history retrieval, and usage credit display.
+
+### **AiMultiModels.jsx**
+
+Core component that enables multi-AI conversations, switching between models, and displaying responses side-by-side.
+
+### **UsageCredit.jsx**
+
+Displays the remaining daily credits for a user and prompts them to upgrade when limits are reached.
+
+### **Pricingmodel.jsx**
+
+Contains pricing logic and modal display for subscription upgrades.
+
+---
+
+##  Future Enhancements
+
+* Add support for more AI models along with agents.
+* Integrate real-time streaming of responses.
+* Implement chat sharing and export features.
+* Add analytics for AI performance comparison.
+
+---
+
+##  Author
+
+**Sanchit Kanwar**
+[GitHub](https://github.com/Sanchitkanwar31)
+
+---
+
+##  License
+
+This project is licensed under the **MIT License** — feel free to use and modify it for your own purposes.
